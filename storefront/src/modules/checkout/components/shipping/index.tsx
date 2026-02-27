@@ -1,6 +1,7 @@
 "use client"
 
-import { Radio, RadioGroup } from "@headlessui/react"
+import { RadioGroup } from "@headlessui/react"
+const Radio = RadioGroup.Option
 import { setShippingMethod } from "@lib/data/cart"
 import { calculatePriceForShippingOption } from "@lib/data/fulfillment"
 import { convertToLocale } from "@lib/util/money"

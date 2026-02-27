@@ -1,4 +1,5 @@
-import { Radio as RadioGroupOption } from "@headlessui/react"
+import { RadioGroup } from "@headlessui/react"
+const RadioGroupOption = RadioGroup.Option
 import { Text, clx } from "@medusajs/ui"
 import React, { useContext, useMemo, type JSX } from "react"
 
