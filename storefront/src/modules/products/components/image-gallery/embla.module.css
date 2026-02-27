@@ -1,0 +1,73 @@
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.embla__button {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  z-index: 1;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(4px);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.embla__button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.embla__button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.embla__thumbs {
+  overflow: hidden;
+}
+
+.embla__thumbs__container {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.embla__thumbs__slide {
+  flex: 0 0 80px;
+  min-width: 0;
+  cursor: pointer;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.embla__thumbs__slide:hover {
+  opacity: 0.8;
+}
+
+.embla__thumbs__slide--selected {
+  opacity: 1;
+  box-shadow: 0 0 0 2px #000;
+}

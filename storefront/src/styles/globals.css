@@ -1,0 +1,212 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* =============================================
+   SIGRID - Tema Visual
+   Estilo Zara - Minimalista (radius: 0, rosa mauve)
+   ============================================= */
+
+:root {
+  --radius: 0rem;
+  /* Colores base: blanco, negro y grises */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(0.98 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  /* Primary: negro */
+  --primary: oklch(0.15 0 0);
+  --primary-foreground: oklch(1 0 0);
+  /* Secondary: #bf9998 - rosa secundario */
+  --secondary: oklch(0.68 0.05 20);
+  --secondary-foreground: oklch(0.15 0 0);
+  /* Muted: grises suaves */
+  --muted: oklch(0.95 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+  /* Accent: #ad7777 - rosa para destacar */
+  --accent: oklch(0.58 0.08 20);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.55 0.2 25);
+  /* Bordes e inputs: grises */
+  --border: oklch(0.88 0 0);
+  --input: oklch(0.88 0 0);
+  --ring: oklch(0.58 0.08 20);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label {
+    @apply -translate-y-2 text-xsmall-regular;
+  }
+
+  input:focus ~ label {
+    @apply left-0;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    border: 1px solid #212121;
+    -webkit-text-fill-color: #212121;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
+  /* Colores Sigrid como utilidades */
+  .text-sigrid-accent {
+    color: var(--accent);
+  }
+  .bg-sigrid-accent {
+    background-color: var(--accent);
+  }
+  .text-sigrid-secondary {
+    color: var(--secondary);
+  }
+  .bg-sigrid-secondary {
+    background-color: var(--secondary);
+  }
+  .bg-sigrid-muted {
+    background-color: var(--muted);
+  }
+  .text-sigrid-muted {
+    color: var(--muted-foreground);
+  }
+  .border-sigrid {
+    border-color: var(--border);
+  }
+}
+
+@layer components {
+  .content-container {
+    @apply max-w-[1440px] w-full mx-auto px-6;
+  }
+
+  .contrast-btn {
+    @apply px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors duration-200 ease-in;
+  }
+
+  .text-xsmall-regular {
+    @apply text-[10px] leading-4 font-normal;
+  }
+
+  .text-small-regular {
+    @apply text-xs leading-5 font-normal;
+  }
+
+  .text-small-semi {
+    @apply text-xs leading-5 font-semibold;
+  }
+
+  .text-base-regular {
+    @apply text-sm leading-6 font-normal;
+  }
+
+  .text-base-semi {
+    @apply text-sm leading-6 font-semibold;
+  }
+
+  .text-large-regular {
+    @apply text-base leading-6 font-normal;
+  }
+
+  .text-large-semi {
+    @apply text-base leading-6 font-semibold;
+  }
+
+  .text-xl-regular {
+    @apply text-2xl leading-[36px] font-normal;
+  }
+
+  .text-xl-semi {
+    @apply text-2xl leading-[36px] font-semibold;
+  }
+
+  .text-2xl-regular {
+    @apply text-[30px] leading-[48px] font-normal;
+  }
+
+  .text-2xl-semi {
+    @apply text-[30px] leading-[48px] font-semibold;
+  }
+
+  .text-3xl-regular {
+    @apply text-[32px] leading-[44px] font-normal;
+  }
+
+  .text-3xl-semi {
+    @apply text-[32px] leading-[44px] font-semibold;
+  }
+
+  /* Sigrid button styles */
+  .btn-sigrid-primary {
+    @apply px-8 py-3 text-white transition-colors text-base tracking-wider uppercase;
+    background-color: var(--accent);
+  }
+  .btn-sigrid-primary:hover {
+    background-color: var(--accent);
+    opacity: 0.9;
+  }
+
+  .btn-sigrid-outline {
+    @apply px-8 py-3 transition-colors text-base tracking-wider;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+  }
+  .btn-sigrid-outline:hover {
+    background-color: var(--accent);
+    color: white;
+  }
+}
+
+/* Ocultar barra de scroll globalmente */
+html,
+body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
