@@ -24,6 +24,28 @@ if (fs.existsSync(envPath)) {
   );
 }
 
+// Copy subscribers directory
+const subscribersSourcePath = path.join(process.cwd(), 'src', 'subscribers');
+const subscribersDestPath = path.join(MEDUSA_SERVER_PATH, 'src', 'subscribers');
+if (fs.existsSync(subscribersSourcePath)) {
+  console.log('Copying subscribers to .medusa/server/src/subscribers...');
+  fs.cpSync(subscribersSourcePath, subscribersDestPath, { recursive: true });
+  console.log('✅ Subscribers copied successfully');
+} else {
+  console.log('⚠️  No subscribers directory found - skipping');
+}
+
+// Copy email-notifications module
+const emailModuleSourcePath = path.join(process.cwd(), 'src', 'modules', 'email-notifications');
+const emailModuleDestPath = path.join(MEDUSA_SERVER_PATH, 'src', 'modules', 'email-notifications');
+if (fs.existsSync(emailModuleSourcePath)) {
+  console.log('Copying email-notifications module to .medusa/server/src/modules/email-notifications...');
+  fs.cpSync(emailModuleSourcePath, emailModuleDestPath, { recursive: true });
+  console.log('✅ Email-notifications module copied successfully');
+} else {
+  console.log('⚠️  No email-notifications module found - skipping');
+}
+
 // Install dependencies
 console.log('Installing dependencies in .medusa/server...');
 execSync('pnpm i --prod --frozen-lockfile', { 
