@@ -24,22 +24,11 @@ if (fs.existsSync(envPath)) {
   );
 }
 
-// NOTE: Subscribers are NOT copied here because `medusa build` already compiles
-// them into .medusa/server/. Copying the .ts source files on top would cause
-// duplicate subscriber registration errors at runtime (e.g. "Subscriber with id
-// user-invite-handler already exists").
-
-// Copy email-notifications module (templates use .tsx/JSX which may not be
-// fully compiled by `medusa build`, so we copy the source as a safety measure)
-const emailModuleSourcePath = path.join(process.cwd(), 'src', 'modules', 'email-notifications');
-const emailModuleDestPath = path.join(MEDUSA_SERVER_PATH, 'src', 'modules', 'email-notifications');
-if (fs.existsSync(emailModuleSourcePath)) {
-  console.log('Copying email-notifications module to .medusa/server/src/modules/email-notifications...');
-  fs.cpSync(emailModuleSourcePath, emailModuleDestPath, { recursive: true });
-  console.log('✅ Email-notifications module copied successfully');
-} else {
-  console.log('⚠️  No email-notifications module found - skipping');
-}
+// NOTE: Subscribers and custom modules are NOT copied here because
+// `medusa build` already compiles them into .medusa/server/.
+// Copying the .ts/.tsx source files on top causes conflicts:
+// - Subscribers: duplicate registration errors at runtime
+// - Modules: notification provider not found (compiled .js overwritten by raw .ts)
 
 // Install dependencies
 console.log('Installing dependencies in .medusa/server...');
