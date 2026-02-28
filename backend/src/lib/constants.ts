@@ -69,13 +69,6 @@ export const RESEND_FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL || process.env.RESEND_FROM;
 
 /**
- * (optionl) SendGrid API Key and from Email - do not set if using Resend
- */
-export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
-export const SENDGRID_FROM_EMAIL =
-  process.env.SENDGRID_FROM_EMAIL || process.env.SENDGRID_FROM;
-
-/**
  * (optional) Stripe API key and webhook secret
  */
 export const STRIPE_API_KEY = process.env.STRIPE_API_KEY;

@@ -24,11 +24,16 @@ if (fs.existsSync(envPath)) {
   );
 }
 
-// NOTE: Subscribers and custom modules are NOT copied here because
-// `medusa build` already compiles them into .medusa/server/.
-// Copying the .ts/.tsx source files on top causes conflicts:
+// NOTE: Subscribers and custom modules (including email-notifications with .tsx
+// templates) are compiled by `medusa build` into .medusa/server/ automatically.
+// Do NOT copy raw .ts/.tsx source files here - it causes conflicts:
 // - Subscribers: duplicate registration errors at runtime
-// - Modules: notification provider not found (compiled .js overwritten by raw .ts)
+// - Modules: compiled .js overwritten by raw .ts, breaking module resolution
+//
+// IMPORTANT: The email-notifications module uses .tsx templates (react-email).
+// The compiled output requires `react` and `react-dom` at runtime (jsx-runtime).
+// These MUST be in `dependencies` (not devDependencies) in package.json, because
+// the `pnpm i --prod` below only installs production dependencies.
 
 // Install dependencies
 console.log('Installing dependencies in .medusa/server...');
