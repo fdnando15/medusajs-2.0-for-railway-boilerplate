@@ -20,16 +20,16 @@ export default async function orderPlacedHandler({
       template: EmailTemplates.ORDER_PLACED,
       data: {
         emailOptions: {
-          replyTo: 'info@example.com',
-          subject: 'Your order has been placed'
+          replyTo: 'onboarding@resend.dev',
+          subject: '¡Gracias por tu compra! - Pedido confirmado'
         },
         order,
         shippingAddress,
-        preview: 'Thank you for your order!'
+        preview: '¡Tu pedido ha sido confirmado!'
       }
     })
   } catch (error) {
-    console.error('Error sending order confirmation notification:', error)
+    console.error('Error al enviar email de confirmación de pedido:', error)
   }
 }
 
