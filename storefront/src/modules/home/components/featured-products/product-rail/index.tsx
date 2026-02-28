@@ -30,9 +30,9 @@ export default async function ProductRail({
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between mb-8">
         <Text className="txt-xlarge">{collection.title}</Text>
-        <InteractiveLink href={`/collections/${collection.handle}`}>
-          Ver todos
-        </InteractiveLink>
+        <span className="txt-medium text-ui-fg-muted">
+          {collection.title}
+        </span>
       </div>
       <ul className="grid grid-cols-1 xsmall:grid-cols-2 small:grid-cols-3 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-12">
         {pricedProducts &&

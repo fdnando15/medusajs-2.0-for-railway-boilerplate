@@ -1,4 +1,3 @@
-import { listCollections } from "@lib/data/collections"
 import Image from "next/image"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -37,10 +36,6 @@ const InstagramIcon = () => (
 )
 
 export default async function Footer() {
-  const { collections } = await listCollections({
-    fields: "*products",
-  }).catch(() => ({ collections: [] }))
-
   const currentYear = new Date().getFullYear()
 
   return (
@@ -60,27 +55,6 @@ export default async function Footer() {
             <p className="mt-3 text-sm text-[var(--muted-foreground)]">
               Bolsos Artesanales
             </p>
-
-            {/* Collections from Medusa */}
-            {collections && collections.length > 0 && (
-              <div className="mt-6 flex flex-col gap-y-2">
-                <span className="text-xs font-semibold text-[var(--foreground)]">
-                  Colecciones
-                </span>
-                <ul className="flex flex-col gap-1">
-                  {collections.slice(0, 4).map((c: any) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="text-sm text-[var(--muted-foreground)] hover:text-sigrid-accent transition-colors"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
 
           {/* Column 2: Social Media */}
