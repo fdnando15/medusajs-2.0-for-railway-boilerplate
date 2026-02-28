@@ -65,7 +65,7 @@ function getImagesForVariant(
   }
 
   const variant = product.variants!.find((v) => v.id === selectedVariantId)
-  if (!variant || !variant.images.length) {
+  if (!variant || !variant.images?.length) {
     return product.images
   }
 
@@ -105,7 +105,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       description: truncatedDescription,
       images: product.thumbnail ? [product.thumbnail] : [],
       url: `https://sigridbolsos.com/${params.countryCode}/products/${handle}`,
-      type: "og:product",
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",
@@ -135,11 +135,11 @@ export default async function ProductPage(props: Props) {
     queryParams: { handle: params.handle },
   }).then(({ response }) => response.products[0])
 
-  const images = getImagesForVariant(pricedProduct, selectedVariantId)
-
   if (!pricedProduct) {
     notFound()
   }
+
+  const images = getImagesForVariant(pricedProduct, selectedVariantId)
 
   // JSON-LD: Product schema
   const cheapestVariant = pricedProduct.variants?.reduce(
