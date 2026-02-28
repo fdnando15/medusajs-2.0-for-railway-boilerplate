@@ -33,13 +33,11 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
     border: '#e0e0e0'       // Gris para bordes
   }
 
-  // Formatear precio (dividir por 100 si viene en centavos)
   const formatPrice = (price: number, currency: string) => {
-    const amount = price / 100 // Medusa guarda precios en centavos
     return new Intl.NumberFormat('es-ES', {
       style: 'currency',
       currency: currency.toUpperCase()
-    }).format(amount)
+    }).format(price)
   }
 
   return (
@@ -73,7 +71,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
           fontSize: '16px',
           color: brandColors.black
         }}>
-          ¡Hola {shippingAddress.first_name}! 👋
+          Hola {shippingAddress.first_name},
         </Text>
 
         <Text style={{ 
@@ -259,7 +257,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
             fontSize: '15px',
             color: brandColors.black
           }}>
-            ¡Gracias por confiar en nosotros! 💕
+            Gracias por confiar en nosotros.
           </Text>
           <Text style={{ 
             margin: '0',
@@ -288,7 +286,7 @@ OrderPlacedTemplate.PreviewProps = {
         product_title: 'Vestido Rosa Elegante', 
         variant_title: 'Talla M',
         quantity: 1, 
-        unit_price: 4500 // 45.00 EUR en centavos
+        unit_price: 45
       },
       { 
         id: 'item-2', 
@@ -296,7 +294,7 @@ OrderPlacedTemplate.PreviewProps = {
         product_title: 'Bolso de Mano', 
         variant_title: 'Default Variant',
         quantity: 1, 
-        unit_price: 3200 // 32.00 EUR en centavos
+        unit_price: 32
       }
     ],
     shipping_address: {
@@ -308,7 +306,7 @@ OrderPlacedTemplate.PreviewProps = {
       postal_code: '28013',
       country_code: 'ES'
     },
-    summary: { raw_current_order_total: { value: 7700 } } // 77.00 EUR en centavos
+    summary: { raw_current_order_total: { value: 77 } }
   },
   shippingAddress: {
     first_name: 'María',
