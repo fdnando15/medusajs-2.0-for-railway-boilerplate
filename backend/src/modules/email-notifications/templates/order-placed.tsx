@@ -22,9 +22,7 @@ export const isOrderPlacedTemplateData = (data: any): data is OrderPlacedTemplat
 export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
   PreviewProps: OrderPlacedPreviewProps
 } = ({ order, shippingAddress, preview = '¡Tu pedido ha sido confirmado!' }) => {
-  // NOTA: Reemplaza 'YOUR-PROJECT-ID' con tu ID de proyecto de Supabase
-  // Lo encuentras en: Supabase Dashboard → Settings → General → Reference ID
-  const logoUrl = 'https://YOUR-PROJECT-ID.supabase.co/storage/v1/object/public/medusa-media/logo-sigrid.png'
+  const logoUrl = 'https://mudtnolzkzjhwuyircxx.supabase.co/storage/v1/object/public/medusa-media/logo-sigrid.png'
   
   // Colores de la marca Sigrid
   const brandColors = {
