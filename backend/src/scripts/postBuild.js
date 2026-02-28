@@ -24,18 +24,13 @@ if (fs.existsSync(envPath)) {
   );
 }
 
-// Copy subscribers directory
-const subscribersSourcePath = path.join(process.cwd(), 'src', 'subscribers');
-const subscribersDestPath = path.join(MEDUSA_SERVER_PATH, 'src', 'subscribers');
-if (fs.existsSync(subscribersSourcePath)) {
-  console.log('Copying subscribers to .medusa/server/src/subscribers...');
-  fs.cpSync(subscribersSourcePath, subscribersDestPath, { recursive: true });
-  console.log('✅ Subscribers copied successfully');
-} else {
-  console.log('⚠️  No subscribers directory found - skipping');
-}
+// NOTE: Subscribers are NOT copied here because `medusa build` already compiles
+// them into .medusa/server/. Copying the .ts source files on top would cause
+// duplicate subscriber registration errors at runtime (e.g. "Subscriber with id
+// user-invite-handler already exists").
 
-// Copy email-notifications module
+// Copy email-notifications module (templates use .tsx/JSX which may not be
+// fully compiled by `medusa build`, so we copy the source as a safety measure)
 const emailModuleSourcePath = path.join(process.cwd(), 'src', 'modules', 'email-notifications');
 const emailModuleDestPath = path.join(MEDUSA_SERVER_PATH, 'src', 'modules', 'email-notifications');
 if (fs.existsSync(emailModuleSourcePath)) {
