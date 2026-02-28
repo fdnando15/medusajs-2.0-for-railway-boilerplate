@@ -3,7 +3,10 @@ import { notFound } from "next/navigation"
 import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
+import JsonLd from "@modules/common/components/json-ld"
 import { HttpTypes } from "@medusajs/types"
+
+const BASE_URL = "https://sigridbolsos.com"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -88,13 +91,30 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
+  const description =
+    product.description ||
+    `${product.title} - Bolso artesanal hecho a mano por Sigrid en Arahal, Sevilla.`
+  const truncatedDescription =
+    description.length > 160 ? description.substring(0, 157) + "..." : description
+
   return {
-    title: `${product.title} | Medusa Store`,
-    description: `${product.title}`,
+    title: product.title,
+    description: truncatedDescription,
     openGraph: {
-      title: `${product.title} | Medusa Store`,
-      description: `${product.title}`,
+      title: `${product.title} | Sigrid Bolsos Artesanales`,
+      description: truncatedDescription,
       images: product.thumbnail ? [product.thumbnail] : [],
+      url: `https://sigridbolsos.com/${params.countryCode}/products/${handle}`,
+      type: "og:product",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.title} | Sigrid`,
+      description: truncatedDescription,
+      images: product.thumbnail ? [product.thumbnail] : [],
+    },
+    alternates: {
+      canonical: `https://sigridbolsos.com/${params.countryCode}/products/${handle}`,
     },
   }
 }
@@ -121,12 +141,88 @@ export default async function ProductPage(props: Props) {
     notFound()
   }
 
+  // JSON-LD: Product schema
+  const cheapestVariant = pricedProduct.variants?.reduce(
+    (cheapest: any, variant: any) => {
+      const price = variant.calculated_price?.calculated_amount
+      const cheapestPrice = cheapest?.calculated_price?.calculated_amount
+      if (!price) return cheapest
+      if (!cheapestPrice || price < cheapestPrice) return variant
+      return cheapest
+    },
+    null as any
+  )
+
+  const productPrice = cheapestVariant?.calculated_price?.calculated_amount
+  const currencyCode =
+    cheapestVariant?.calculated_price?.currency_code?.toUpperCase() || "EUR"
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: pricedProduct.title,
+    description:
+      pricedProduct.description ||
+      `${pricedProduct.title} - Bolso artesanal hecho a mano por Sigrid.`,
+    image: pricedProduct.thumbnail || pricedProduct.images?.[0]?.url || "",
+    url: `${BASE_URL}/${params.countryCode}/products/${params.handle}`,
+    brand: {
+      "@type": "Brand",
+      name: "Sigrid Bolsos Artesanales",
+    },
+    ...(productPrice
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: `${BASE_URL}/${params.countryCode}/products/${params.handle}`,
+            priceCurrency: currencyCode,
+            price: productPrice,
+            availability: "https://schema.org/InStock",
+            seller: {
+              "@type": "Organization",
+              name: "Sigrid Bolsos Artesanales",
+            },
+          },
+        }
+      : {}),
+  }
+
+  // JSON-LD: BreadcrumbList
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: `${BASE_URL}/${params.countryCode}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tienda",
+        item: `${BASE_URL}/${params.countryCode}/categories`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: pricedProduct.title,
+        item: `${BASE_URL}/${params.countryCode}/products/${params.handle}`,
+      },
+    ],
+  }
+
   return (
-    <ProductTemplate
-      product={pricedProduct}
-      region={region}
-      countryCode={params.countryCode}
-      images={images}
-    />
+    <>
+      <JsonLd data={productSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      <ProductTemplate
+        product={pricedProduct}
+        region={region}
+        countryCode={params.countryCode}
+        images={images}
+      />
+    </>
   )
 }

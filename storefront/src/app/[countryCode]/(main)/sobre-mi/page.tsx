@@ -3,9 +3,18 @@ import { Metadata } from "next"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 export const metadata: Metadata = {
-  title: "Sobre mi - Sigrid Bolsos Artesanales",
+  title: "Sobre mi",
   description:
-    "Conoce la historia de Sigrid, bolsos artesanales hechos a mano en Arahal, Sevilla.",
+    "Conoce la historia de Sigrid y su pasion por los bolsos artesanales hechos a mano en Arahal, Sevilla. Disenos unicos con ediciones limitadas.",
+  openGraph: {
+    title: "Sobre mi | Sigrid Bolsos Artesanales",
+    description:
+      "Conoce la historia de Sigrid, bolsos artesanales hechos a mano en Arahal, Sevilla.",
+    url: "https://sigridbolsos.com/es/sobre-mi",
+  },
+  alternates: {
+    canonical: "https://sigridbolsos.com/es/sobre-mi",
+  },
 }
 
 export default function SobreMiPage() {

@@ -8,6 +8,8 @@ import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "Finalizar compra",
+  description: "Completa tu pedido en Sigrid Bolsos Artesanales.",
+  robots: { index: false, follow: false },
 }
 
 export default async function Checkout() {

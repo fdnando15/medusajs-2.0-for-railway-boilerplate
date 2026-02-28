@@ -1,9 +1,19 @@
 import { Metadata } from "next"
+import JsonLd from "@modules/common/components/json-ld"
 
 export const metadata: Metadata = {
-  title: "Contacto - Sigrid Bolsos Artesanales",
+  title: "Contacto",
   description:
-    "Contacta con Sigrid por WhatsApp, email o Instagram. Bolsos artesanales desde Arahal, Sevilla.",
+    "Contacta con Sigrid por WhatsApp, email o Instagram. Bolsos artesanales hechos a mano en Arahal, Sevilla. Atencion personalizada.",
+  openGraph: {
+    title: "Contacto | Sigrid Bolsos Artesanales",
+    description:
+      "Contacta con Sigrid por WhatsApp, email o Instagram. Bolsos artesanales desde Arahal, Sevilla.",
+    url: "https://sigridbolsos.com/es/contacto",
+  },
+  alternates: {
+    canonical: "https://sigridbolsos.com/es/contacto",
+  },
 }
 
 // Instagram icon
@@ -37,9 +47,49 @@ const LocationIcon = () => (
   </svg>
 )
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Haces envios internacionales?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Si, enviamos a toda Espana, Europa y algunos paises internacionales. Los gastos de envio se calculan automaticamente segun tu ubicacion.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Puedo ver los bolsos en persona?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Actualmente trabajo desde mi taller y solo vendo online, pero comparto muchas fotos y videos detallados de cada pieza para que puedas verla desde todos los angulos.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Cuanto tiempo tarda en llegar un pedido?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Los pedidos salen en un plazo de 2-3 dias laborables. El envio nacional suele tardar 2-3 dias, y el internacional entre 5-14 dias segun el destino.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Haces piezas personalizadas?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ocasionalmente acepto encargos personalizados. Escribeme por WhatsApp o email contandome que tienes en mente y vere si puedo hacerlo realidad.",
+      },
+    },
+  ],
+}
+
 export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-white">
+      <JsonLd data={faqSchema} />
       {/* Hero Section */}
       <section className="py-16 px-4 md:py-24">
         <div className="mx-auto max-w-3xl text-center">

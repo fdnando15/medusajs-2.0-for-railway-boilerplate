@@ -5,7 +5,10 @@ import { getCategoryByHandle, listCategories } from "@lib/data/categories"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
+import JsonLd from "@modules/common/components/json-ld"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+
+const BASE_URL = "https://sigridbolsos.com"
 
 type Props = {
   params: Promise<{ category: string[]; countryCode: string }>
@@ -48,15 +51,23 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   try {
     const productCategory = await getCategoryByHandle(params.category)
 
-    const title = productCategory.name + " | Medusa Store"
+    const categoryName = productCategory.name
+    const description =
+      productCategory.description ??
+      `${categoryName} - Bolsos artesanales hechos a mano en Arahal, Sevilla. Descubre la coleccion de Sigrid.`
 
-    const description = productCategory.description ?? `${title} category.`
+    const categoryPath = params.category.join("/")
 
     return {
-      title: `${title} | Medusa Store`,
+      title: categoryName,
       description,
+      openGraph: {
+        title: `${categoryName} | Sigrid Bolsos Artesanales`,
+        description,
+        url: `https://sigridbolsos.com/${params.countryCode}/categories/${categoryPath}`,
+      },
       alternates: {
-        canonical: `${params.category.join("/")}`,
+        canonical: `https://sigridbolsos.com/${params.countryCode}/categories/${categoryPath}`,
       },
     }
   } catch (error) {
@@ -80,12 +91,36 @@ export default async function CategoryPage(props: Props) {
     redirect(`/${params.countryCode}`)
   }
 
+  const categoryPath = params.category.join("/")
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: `${BASE_URL}/${params.countryCode}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: productCategory.name,
+        item: `${BASE_URL}/${params.countryCode}/categories/${categoryPath}`,
+      },
+    ],
+  }
+
   return (
-    <CategoryTemplate
-      category={productCategory}
-      sortBy={sortBy}
-      page={page}
-      countryCode={params.countryCode}
-    />
+    <>
+      <JsonLd data={breadcrumbSchema} />
+      <CategoryTemplate
+        category={productCategory}
+        sortBy={sortBy}
+        page={page}
+        countryCode={params.countryCode}
+      />
+    </>
   )
 }

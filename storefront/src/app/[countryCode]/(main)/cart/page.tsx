@@ -5,8 +5,9 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Cesta - Sigrid",
-  description: "Tu cesta de compra",
+  title: "Cesta",
+  description: "Tu cesta de compra en Sigrid Bolsos Artesanales.",
+  robots: { index: false, follow: false },
 }
 
 export default async function Cart() {
