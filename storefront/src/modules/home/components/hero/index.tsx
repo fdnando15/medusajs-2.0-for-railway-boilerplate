@@ -20,7 +20,7 @@ const Hero = () => {
 
         {/* Contenido centrado */}
         <div className="relative flex h-full flex-col items-center justify-center px-4 text-center">
-          <p className="mb-6 text-2xl font-semibold tracking-widest text-sigrid-accent md:text-3xl lg:text-4xl whitespace-nowrap">
+          <p className="mb-6 text-xl font-semibold tracking-wide text-sigrid-accent md:text-3xl md:tracking-widest lg:text-4xl">
             PRIMAVERA-VERANO 2026
           </p>
           <a href="#colecciones">
