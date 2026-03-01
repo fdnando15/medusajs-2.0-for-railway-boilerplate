@@ -118,32 +118,22 @@ const medusaConfig = {
     // =====================================================
     // NOTIFICATION MODULE (Resend)
     // =====================================================
-    ...(RESEND_API_KEY && RESEND_FROM_EMAIL
-      ? [
+    {
+      resolve: "@medusajs/medusa/notification",
+      options: {
+        providers: [
           {
-            key: Modules.NOTIFICATION,
-            resolve: "@medusajs/notification",
+            resolve: "./src/modules/resend",
+            id: "resend",
             options: {
-              providers: [
-                // Resend (si está configurado)
-                ...(RESEND_API_KEY && RESEND_FROM_EMAIL
-                  ? [
-                      {
-                        resolve: "./src/modules/email-notifications",
-                        id: "resend",
-                        options: {
-                          channels: ["email"],
-                          api_key: RESEND_API_KEY,
-                          from: RESEND_FROM_EMAIL,
-                        },
-                      },
-                    ]
-                  : []),
-              ],
+              channels: ["email"],
+              api_key: RESEND_API_KEY,
+              from: RESEND_FROM_EMAIL,
             },
           },
-        ]
-      : []),
+        ],
+      },
+    },
     // =====================================================
     // PAYMENT MODULE (Stripe)
     // =====================================================
