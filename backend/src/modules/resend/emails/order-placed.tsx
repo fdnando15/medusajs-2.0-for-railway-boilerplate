@@ -1,17 +1,9 @@
 import {
   Body,
-  Column,
-  Container,
   Head,
-  Heading,
   Html,
   Img,
-  Link,
   Preview,
-  Row,
-  Section,
-  Tailwind,
-  Text,
 } from "@react-email/components"
 import { BigNumberValue, CustomerDTO, OrderDTO } from "@medusajs/framework/types"
 import React from "react"
@@ -41,143 +33,495 @@ function OrderPlacedEmailComponent({ order }: OrderPlacedEmailProps) {
     return price?.toString() || ""
   }
 
+  const formatDate = (date: Date | string) => {
+    const d = typeof date === "string" ? new Date(date) : date
+    return new Intl.DateTimeFormat("es-ES", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(d)
+  }
+
+  const firstName = order.customer?.first_name || order.shipping_address?.first_name || ""
+
   return (
-    <Tailwind>
-      <Html className="font-sans bg-gray-100">
-        <Head />
-        <Preview>Gracias por tu pedido en Sigrid Bolsos Artesanales</Preview>
-        <Body className="bg-white my-10 mx-auto w-full max-w-2xl">
-          {/* Header */}
-          <Section className="bg-[#27272a] text-white px-6 py-4">
-            <Heading className="text-2xl font-bold m-0">Sigrid Bolsos</Heading>
-            <Text className="text-sm m-0 mt-1">Bolsos Artesanales</Text>
-          </Section>
+    <Html dir="ltr" lang="es">
+      <Head>
+        <meta content="text/html; charset=UTF-8" httpEquiv="Content-Type" />
+        <meta name="x-apple-disable-message-reformatting" />
+      </Head>
+      <div
+        style={{
+          display: "none",
+          overflow: "hidden",
+          lineHeight: "1px",
+          opacity: 0,
+          maxHeight: 0,
+          maxWidth: 0,
+        }}
+      >
+        Tu pedido ha sido confirmado
+      </div>
+      <Body style={{ backgroundColor: "#ffffff", margin: 0 }}>
+        <table
+          border={0}
+          width="100%"
+          cellPadding="0"
+          cellSpacing="0"
+          role="presentation"
+          align="center"
+        >
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  backgroundColor: "#ffffff",
+                  fontFamily:
+                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif',
+                  margin: 0,
+                  padding: 0,
+                }}
+              >
+                <table
+                  align="center"
+                  width="100%"
+                  border={0}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  role="presentation"
+                  style={{
+                    maxWidth: "600px",
+                    border: "none",
+                    borderRadius: "0px",
+                    margin: "40px auto",
+                    padding: "30px",
+                    width: "100%",
+                    backgroundColor: "#ffffff",
+                  }}
+                >
+                  <tbody>
+                    <tr style={{ width: "100%" }}>
+                      <td>
+                        <div style={{ maxWidth: "100%", wordWrap: "break-word" }}>
+                          <table
+                            align="center"
+                            width="100%"
+                            border={0}
+                            cellPadding="0"
+                            cellSpacing="0"
+                            role="presentation"
+                          >
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <Img
+                                    alt="Sigrid"
+                                    src="https://mudtnolzkzjhwuyircxx.supabase.co/storage/v1/object/public/medusa-media/logo-sigrid.png"
+                                    style={{
+                                      display: "block",
+                                      outline: "none",
+                                      border: "none",
+                                      textDecoration: "none",
+                                      margin: "0 auto 30px",
+                                    }}
+                                    width="120"
+                                  />
+                                  <p
+                                    style={{
+                                      fontSize: "28px",
+                                      lineHeight: "24px",
+                                      fontWeight: "bold",
+                                      textAlign: "center",
+                                      margin: "0 0 10px",
+                                      color: "#ad7777",
+                                    }}
+                                  >
+                                    Pedido Confirmado
+                                  </p>
+                                  <p
+                                    style={{
+                                      fontSize: "16px",
+                                      lineHeight: "24px",
+                                      margin: "0 0 10px",
+                                      color: "#0f0f0f",
+                                    }}
+                                  >
+                                    Hola {firstName}
+                                  </p>
+                                  <p
+                                    style={{
+                                      fontSize: "15px",
+                                      lineHeight: "24px",
+                                      margin: "0 0 25px",
+                                      color: "#4a4a4a",
+                                    }}
+                                  >
+                                    Gracias por tu compra. Tu pedido ha sido confirmado y estamos
+                                    preparándolo con mucho cariño. Aquí tienes todos los detalles:
+                                  </p>
 
-          {/* Thank You Message */}
-          <Container className="p-6">
-            <Heading className="text-2xl font-bold text-center text-gray-800">
-              ¡Gracias por tu pedido, {order.customer?.first_name || order.shipping_address?.first_name}!
-            </Heading>
-            <Text className="text-center text-gray-600 mt-2">
-              Estamos preparando tu pedido y te notificaremos cuando se envíe.
-            </Text>
-          </Container>
+                                  {/* Resumen del Pedido */}
+                                  <div
+                                    style={{
+                                      backgroundColor: "#f5f5f5",
+                                      padding: "20px",
+                                      borderRadius: "0px",
+                                      marginBottom: "25px",
+                                    }}
+                                  >
+                                    <p
+                                      style={{
+                                        fontSize: "16px",
+                                        lineHeight: "24px",
+                                        fontWeight: "bold",
+                                        margin: "0 0 15px",
+                                        color: "#ad7777",
+                                      }}
+                                    >
+                                      Resumen del Pedido
+                                    </p>
+                                    <div style={{ marginBottom: "8px" }}>
+                                      <p
+                                        style={{
+                                          fontSize: "14px",
+                                          lineHeight: "24px",
+                                          margin: 0,
+                                          color: "#666",
+                                        }}
+                                      >
+                                        <strong>Número de pedido:</strong> {order.display_id}
+                                      </p>
+                                    </div>
+                                    <div style={{ marginBottom: "8px" }}>
+                                      <p
+                                        style={{
+                                          fontSize: "14px",
+                                          lineHeight: "24px",
+                                          margin: 0,
+                                          color: "#666",
+                                        }}
+                                      >
+                                        <strong>Fecha:</strong> {formatDate(order.created_at)}
+                                      </p>
+                                    </div>
+                                    <div>
+                                      <p
+                                        style={{
+                                          fontSize: "16px",
+                                          lineHeight: "24px",
+                                          margin: 0,
+                                          fontWeight: "bold",
+                                          color: "#0f0f0f",
+                                        }}
+                                      >
+                                        <strong>Total:</strong> {formatPrice(order.total)}
+                                      </p>
+                                    </div>
+                                  </div>
 
-          {/* Order Items */}
-          <Container className="px-6">
-            <Heading className="text-xl font-semibold text-gray-800 mb-4">
-              Tus artículos
-            </Heading>
-            <Row>
-              <Column>
-                <Text className="text-sm m-0 my-2 text-gray-500">Pedido #{order.display_id}</Text>
-              </Column>
-            </Row>
-            {order.items?.map((item) => (
-              <Section key={item.id} className="border-b border-gray-200 py-4">
-                <Row>
-                  <Column className="w-1/3">
-                    <Img
-                      src={item.thumbnail ?? ""}
-                      alt={item.product_title ?? ""}
-                      className="rounded-lg"
-                      width="100%"
-                    />
-                  </Column>
-                  <Column className="w-2/3 pl-4">
-                    <Text className="text-lg font-semibold text-gray-800">
-                      {item.product_title}
-                    </Text>
-                    {item.variant_title && (
-                      <Text className="text-gray-600">{item.variant_title}</Text>
-                    )}
-                    <Text className="text-gray-800 mt-2 font-bold">
-                      {formatPrice(item.total)}
-                    </Text>
-                  </Column>
-                </Row>
-              </Section>
-            ))}
+                                  <hr
+                                    style={{
+                                      width: "100%",
+                                      border: "none",
+                                      borderTop: "1px solid #eaeaea",
+                                      margin: "25px 0",
+                                      borderColor: "#e0e0e0",
+                                      borderWidth: "1px",
+                                    }}
+                                  />
 
-            {/* Order Summary */}
-            <Section className="mt-8">
-              <Heading className="text-xl font-semibold text-gray-800 mb-4">
-                Resumen del pedido
-              </Heading>
-              <Row className="text-gray-600">
-                <Column className="w-1/2">
-                  <Text className="m-0">Subtotal</Text>
-                </Column>
-                <Column className="w-1/2 text-right">
-                  <Text className="m-0">
-                    {formatPrice(order.item_total)}
-                  </Text>
-                </Column>
-              </Row>
-              {order.shipping_methods?.map((method) => (
-                <Row className="text-gray-600" key={method.id}>
-                  <Column className="w-1/2">
-                    <Text className="m-0">{method.name}</Text>
-                  </Column>
-                  <Column className="w-1/2 text-right">
-                    <Text className="m-0">{formatPrice(method.total)}</Text>
-                  </Column>
-                </Row>
-              ))}
-              <Row className="text-gray-600">
-                <Column className="w-1/2">
-                  <Text className="m-0">IVA</Text>
-                </Column>
-                <Column className="w-1/2 text-right">
-                  <Text className="m-0">{formatPrice(order.tax_total || 0)}</Text>
-                </Column>
-              </Row>
-              <Row className="border-t border-gray-200 mt-4 text-gray-800 font-bold">
-                <Column className="w-1/2">
-                  <Text>Total</Text>
-                </Column>
-                <Column className="w-1/2 text-right">
-                  <Text>{formatPrice(order.total)}</Text>
-                </Column>
-              </Row>
-            </Section>
+                                  {/* Dirección de Envío */}
+                                  {order.shipping_address && (
+                                    <>
+                                      <p
+                                        style={{
+                                          fontSize: "16px",
+                                          lineHeight: "24px",
+                                          fontWeight: "bold",
+                                          margin: "0 0 12px",
+                                          color: "#ad7777",
+                                        }}
+                                      >
+                                        Dirección de Envío
+                                      </p>
+                                      <div style={{ marginBottom: "25px" }}>
+                                        <p
+                                          style={{
+                                            fontSize: "14px",
+                                            lineHeight: "24px",
+                                            margin: "0 0 5px",
+                                            color: "#4a4a4a",
+                                          }}
+                                        >
+                                          {order.shipping_address.first_name}{" "}
+                                          {order.shipping_address.last_name}
+                                        </p>
+                                        <p
+                                          style={{
+                                            fontSize: "14px",
+                                            lineHeight: "24px",
+                                            margin: "0 0 5px",
+                                            color: "#4a4a4a",
+                                          }}
+                                        >
+                                          {order.shipping_address.address_1}
+                                        </p>
+                                        {order.shipping_address.address_2 && (
+                                          <p
+                                            style={{
+                                              fontSize: "14px",
+                                              lineHeight: "24px",
+                                              margin: "0 0 5px",
+                                              color: "#4a4a4a",
+                                            }}
+                                          >
+                                            {order.shipping_address.address_2}
+                                          </p>
+                                        )}
+                                        <p
+                                          style={{
+                                            fontSize: "14px",
+                                            lineHeight: "24px",
+                                            margin: "0 0 5px",
+                                            color: "#4a4a4a",
+                                          }}
+                                        >
+                                          {order.shipping_address.postal_code}{" "}
+                                          {order.shipping_address.city}
+                                        </p>
+                                        {order.shipping_address.province && (
+                                          <p
+                                            style={{
+                                              fontSize: "14px",
+                                              lineHeight: "24px",
+                                              margin: "0 0 5px",
+                                              color: "#4a4a4a",
+                                            }}
+                                          >
+                                            {order.shipping_address.province}
+                                          </p>
+                                        )}
+                                        <p
+                                          style={{
+                                            fontSize: "14px",
+                                            lineHeight: "24px",
+                                            margin: 0,
+                                            color: "#4a4a4a",
+                                          }}
+                                        >
+                                          {order.shipping_address.country_code?.toUpperCase()}
+                                        </p>
+                                      </div>
+                                    </>
+                                  )}
 
-            {/* Shipping Address */}
-            {order.shipping_address && (
-              <Section className="mt-8">
-                <Heading className="text-xl font-semibold text-gray-800 mb-4">
-                  Dirección de envío
-                </Heading>
-                <Text className="text-gray-600 m-0">
-                  {order.shipping_address.first_name} {order.shipping_address.last_name}
-                </Text>
-                <Text className="text-gray-600 m-0">{order.shipping_address.address_1}</Text>
-                {order.shipping_address.address_2 && (
-                  <Text className="text-gray-600 m-0">{order.shipping_address.address_2}</Text>
-                )}
-                <Text className="text-gray-600 m-0">
-                  {order.shipping_address.postal_code} {order.shipping_address.city}
-                </Text>
-                <Text className="text-gray-600 m-0">{order.shipping_address.country_code?.toUpperCase()}</Text>
-              </Section>
-            )}
-          </Container>
+                                  <hr
+                                    style={{
+                                      width: "100%",
+                                      border: "none",
+                                      borderTop: "1px solid #eaeaea",
+                                      margin: "25px 0",
+                                      borderColor: "#e0e0e0",
+                                      borderWidth: "1px",
+                                    }}
+                                  />
 
-          {/* Footer */}
-          <Section className="bg-gray-50 p-6 mt-10">
-            <Text className="text-center text-gray-500 text-sm">
-              Si tienes alguna pregunta, contáctanos por WhatsApp al +34 687 85 25 42 o responde a este email.
-            </Text>
-            <Text className="text-center text-gray-500 text-sm mt-2">
-              Síguenos en <Link href="https://instagram.com/sigridbolsos" className="text-blue-600">Instagram</Link> y <Link href="https://facebook.com/p/Sigrid-Bolsos-100068897574178" className="text-blue-600">Facebook</Link>
-            </Text>
-            <Text className="text-center text-gray-400 text-xs mt-4">
-              © {new Date().getFullYear()} Sigrid Bolsos Artesanales - Arahal, Sevilla
-            </Text>
-          </Section>
-        </Body>
-      </Html>
-    </Tailwind>
+                                  {/* Tus Productos */}
+                                  <p
+                                    style={{
+                                      fontSize: "16px",
+                                      lineHeight: "24px",
+                                      fontWeight: "bold",
+                                      margin: "0 0 15px",
+                                      color: "#ad7777",
+                                    }}
+                                  >
+                                    Tus Productos
+                                  </p>
+                                  <table
+                                    style={{
+                                      width: "100%",
+                                      borderCollapse: "collapse",
+                                      marginBottom: "25px",
+                                    }}
+                                  >
+                                    <thead>
+                                      <tr
+                                        style={{
+                                          backgroundColor: "#f5f5f5",
+                                          borderBottom: "2px solid #e0e0e0",
+                                        }}
+                                      >
+                                        <th
+                                          style={{
+                                            padding: "12px 8px",
+                                            textAlign: "left",
+                                            fontSize: "13px",
+                                            fontWeight: "bold",
+                                            color: "#0f0f0f",
+                                          }}
+                                        >
+                                          Producto
+                                        </th>
+                                        <th
+                                          style={{
+                                            padding: "12px 8px",
+                                            textAlign: "center",
+                                            fontSize: "13px",
+                                            fontWeight: "bold",
+                                            color: "#0f0f0f",
+                                          }}
+                                        >
+                                          Cantidad
+                                        </th>
+                                        <th
+                                          style={{
+                                            padding: "12px 8px",
+                                            textAlign: "right",
+                                            fontSize: "13px",
+                                            fontWeight: "bold",
+                                            color: "#0f0f0f",
+                                          }}
+                                        >
+                                          Precio
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {order.items?.map((item) => (
+                                        <tr key={item.id} style={{ borderBottom: "none" }}>
+                                          <td style={{ padding: "12px 8px" }}>
+                                            <p
+                                              style={{
+                                                fontSize: "14px",
+                                                lineHeight: "24px",
+                                                margin: 0,
+                                                color: "#4a4a4a",
+                                              }}
+                                            >
+                                              {item.product_title}
+                                              {item.variant_title && (
+                                                <span
+                                                  style={{
+                                                    color: "#999",
+                                                    fontSize: "13px",
+                                                  }}
+                                                >
+                                                  <br />({item.variant_title})
+                                                </span>
+                                              )}
+                                            </p>
+                                          </td>
+                                          <td style={{ padding: "12px 8px", textAlign: "center" }}>
+                                            <p
+                                              style={{
+                                                fontSize: "14px",
+                                                lineHeight: "24px",
+                                                margin: 0,
+                                                color: "#4a4a4a",
+                                              }}
+                                            >
+                                              {item.quantity}
+                                            </p>
+                                          </td>
+                                          <td style={{ padding: "12px 8px", textAlign: "right" }}>
+                                            <p
+                                              style={{
+                                                fontSize: "14px",
+                                                lineHeight: "24px",
+                                                margin: 0,
+                                                color: "#0f0f0f",
+                                              }}
+                                            >
+                                              {formatPrice(item.total)}
+                                            </p>
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+
+                                  {/* Footer gracias */}
+                                  <div
+                                    style={{
+                                      backgroundColor: "#f5f5f5",
+                                      padding: "20px",
+                                      borderRadius: "0px",
+                                      textAlign: "center",
+                                      marginTop: "30px",
+                                    }}
+                                  >
+                                    <p
+                                      style={{
+                                        fontSize: "15px",
+                                        lineHeight: "24px",
+                                        margin: "0 0 10px",
+                                        color: "#0f0f0f",
+                                      }}
+                                    >
+                                      Gracias por confiar en nosotros
+                                    </p>
+                                    <p
+                                      style={{
+                                        fontSize: "14px",
+                                        lineHeight: "24px",
+                                        margin: 0,
+                                        color: "#666",
+                                      }}
+                                    >
+                                      Si tienes alguna pregunta, no dudes en contactarnos.
+                                    </p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <hr
+                          style={{
+                            width: "100%",
+                            border: "none",
+                            borderTop: "1px solid #eaeaea",
+                            margin: "40px 0 20px",
+                            borderColor: "#e0e0e0",
+                            borderWidth: "1px",
+                          }}
+                        />
+
+                        <div style={{ textAlign: "center", marginTop: "30px" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              lineHeight: "20px",
+                              margin: "0 0 8px",
+                              color: "#999",
+                            }}
+                          >
+                            © {new Date().getFullYear()} Sigrid. Todos los derechos reservados.
+                          </p>
+                          <p
+                            style={{
+                              fontSize: "12px",
+                              lineHeight: "18px",
+                              margin: "0 0 15px",
+                              color: "#bbb",
+                            }}
+                          >
+                            Este email ha sido enviado automáticamente. Por favor, no respondas a
+                            este mensaje.
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </Body>
+    </Html>
   )
 }
 
