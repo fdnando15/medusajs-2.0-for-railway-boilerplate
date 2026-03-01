@@ -116,10 +116,9 @@ const medusaConfig = {
         ]
       : []),
     // =====================================================
-    // NOTIFICATION MODULE (SendGrid y/o Resend)
+    // NOTIFICATION MODULE (Resend)
     // =====================================================
-    ...((SENDGRID_API_KEY && SENDGRID_FROM_EMAIL) ||
-    (RESEND_API_KEY && RESEND_FROM_EMAIL)
+    ...(RESEND_API_KEY && RESEND_FROM_EMAIL
       ? [
           {
             key: Modules.NOTIFICATION,
