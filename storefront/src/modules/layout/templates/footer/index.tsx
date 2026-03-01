@@ -6,7 +6,7 @@ const legalLinks = [
   { href: "/legal/aviso-legal", label: "Aviso Legal" },
   { href: "/legal/privacidad", label: "Privacidad" },
   { href: "/legal/cookies", label: "Cookies" },
-  { href: "/legal/terminos", label: "Terminos" },
+  { href: "/legal/terminos", label: "Términos y Condiciones" },
 ]
 
 // Facebook icon SVG
