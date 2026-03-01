@@ -10,8 +10,8 @@
  * La Publishable API Key se puede obtener del Admin de Medusa en Settings > API Keys
  */
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:9000"
-const PUBLISHABLE_KEY = process.env.PUBLISHABLE_KEY || ""
+const BACKEND_URL = process.env.BACKEND_URL || "https://backend-production-ae247.up.railway.app"
+const PUBLISHABLE_KEY = process.env.PUBLISHABLE_KEY || "pk_6c3ae30836dcccd4bb20c36bc4966bca19a80680084e03813ef17571cb7019aa"
 
 interface TestResult {
   name: string
@@ -324,15 +324,7 @@ async function runAllTests() {
   console.log("=".repeat(60))
   log(`Backend URL: ${BACKEND_URL}`, "info")
   
-  if (!PUBLISHABLE_KEY) {
-    log("PUBLISHABLE_KEY no configurada", "error")
-    log("Obtén la Publishable API Key del Admin de Medusa:", "warn")
-    log("  1. Ve al Admin: https://tu-admin.railway.app/app", "info")
-    log("  2. Settings > API Keys > Publishable Keys", "info")
-    log("  3. Copia la key y ejecuta:", "info")
-    log("     PUBLISHABLE_KEY=pk_xxx pnpm test:store", "info")
-    process.exit(1)
-  }
+  // PUBLISHABLE_KEY ya está configurada por defecto, pero se puede sobrescribir con variable de entorno
   log(`Publishable Key: ${PUBLISHABLE_KEY.substring(0, 10)}...`, "info")
   
   // Verificar conectividad
