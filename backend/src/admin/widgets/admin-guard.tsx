@@ -47,13 +47,14 @@ const CSS = `
   a[href*="/products/import"] { display: none !important; }
   a[href*="/products/export"] { display: none !important; }
 
-
   /* SIDEBAR: Lupa de búsqueda */
   aside div.px-3:has(button.bg-ui-bg-subtle:has(.text-ui-fg-muted)) { display: none !important; }
 
-  /* ACCIONES: Tres puntos y botones de Importar */
+  /* ACCIONES: Tres puntos */
   main button[aria-haspopup="menu"],
-  header button[aria-haspopup="menu"],
+  header button[aria-haspopup="menu"] {
+      display: none !important;
+  }
 `;
 
 export function useAdminGuard() {
