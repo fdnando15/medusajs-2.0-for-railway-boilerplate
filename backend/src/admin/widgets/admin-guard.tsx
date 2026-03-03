@@ -27,7 +27,9 @@ const CSS = `
   aside a[href*="/promotions"],
   aside a[href*="/campaigns"],
   aside a[href*="/price-lists"],
-  aside a[href*="/settings"] { 
+  aside a[href*="/settings"],
+  aside a[href*="/draft-orders"],
+  aside a[href*="/reservations"] { 
       display: none !important; 
   }
 
@@ -35,9 +37,23 @@ const CSS = `
   aside div:has(> a[href*="/customers"]),
   aside div:has(> a[href*="/promotions"]),
   aside div:has(> a[href*="/price-lists"]),
-  aside div:has(> a[href*="/settings"]) {
+  aside div:has(> a[href*="/settings"]),
+  aside div:has(> a[href*="/draft-orders"]),
+  aside div:has(> a[href*="/reservations"]) {
       display: none !important;
   }
+
+  /* BOTONES ESPECÍFICOS: Importar/exportar productos */
+  a[href*="/products/import"] { display: none !important; }
+  a[href*="/products/export"] { display: none !important; }
+
+
+  /* SIDEBAR: Lupa de búsqueda */
+  aside div.px-3:has(button.bg-ui-bg-subtle:has(.text-ui-fg-muted)) { display: none !important; }
+
+  /* ACCIONES: Tres puntos y botones de Importar */
+  main button[aria-haspopup="menu"],
+  header button[aria-haspopup="menu"],
 `;
 
 export function useAdminGuard() {

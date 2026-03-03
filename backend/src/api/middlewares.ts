@@ -75,5 +75,20 @@ export default defineMiddlewares({
       matcher: "/admin/customer-groups(.*)",
       middlewares: [restrictedRouteGuard],
     },
+    // Bloquear /admin/reservations y sus sub-rutas
+    {
+      matcher: "/admin/reservations(.*)",
+      middlewares: [restrictedRouteGuard],
+    },
+    // Bloquear /admin/categories y sus sub-rutas
+    {
+      matcher: "/admin/categories(.*)",
+      middlewares: [restrictedRouteGuard],
+    },
+    // Bloquear /admin/draft-orders y sus sub-rutas
+    {
+      matcher: "/admin/draft-orders(.*)",
+      middlewares: [restrictedRouteGuard],
+    },
   ],
 });
