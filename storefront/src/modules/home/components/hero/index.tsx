@@ -21,10 +21,10 @@ const Hero = () => {
         {/* Contenido centrado */}
         <div className="relative flex h-full flex-col items-center justify-center px-4 text-center">
           <p className="mb-6 text-xl font-semibold tracking-wide text-sigrid-accent md:text-3xl md:tracking-widest lg:text-4xl">
-            PRIMAVERA-VERANO 2026
+            PRUEBAS 2026 WEB NO USABLE
           </p>
           <a href="#colecciones">
-            <button 
+            <button
               className="btn-sigrid-primary text-base md:text-lg px-8 py-4"
               data-testid="hero-view-collection-btn"
             >
@@ -94,7 +94,7 @@ const Hero = () => {
                   Colecciones de temporada. Pocas unidades, mucho caracter.
                 </p>
                 <LocalizedClientLink href="/categories/limitados">
-                  <button 
+                  <button
                     className="btn-sigrid-outline w-full"
                     data-testid="category-limitados-btn"
                   >
@@ -120,7 +120,7 @@ const Hero = () => {
                   Piezas únicas y exclusivas. No encontrarás dos iguales.
                 </p>
                 <LocalizedClientLink href="/categories/exclusivos">
-                  <button 
+                  <button
                     className="btn-sigrid-outline w-full"
                     data-testid="category-exclusivos-btn"
                   >
@@ -146,7 +146,7 @@ const Hero = () => {
                   Bisutería y coleteros para complementar tu look.
                 </p>
                 <LocalizedClientLink href="/categories/accesorios">
-                  <button 
+                  <button
                     className="btn-sigrid-outline w-full"
                     data-testid="category-accesorios-btn"
                   >
