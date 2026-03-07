@@ -24,7 +24,10 @@ const Hero = () => {
             PRIMAVERA-VERANO 2026
           </p>
           <a href="#colecciones">
-            <button className="btn-sigrid-primary text-base md:text-lg px-8 py-4">
+            <button 
+              className="btn-sigrid-primary text-base md:text-lg px-8 py-4"
+              data-testid="hero-view-collection-btn"
+            >
               Ver coleccion
             </button>
           </a>
@@ -91,7 +94,10 @@ const Hero = () => {
                   Colecciones de temporada. Pocas unidades, mucho caracter.
                 </p>
                 <LocalizedClientLink href="/categories/limitados">
-                  <button className="btn-sigrid-outline w-full">
+                  <button 
+                    className="btn-sigrid-outline w-full"
+                    data-testid="category-limitados-btn"
+                  >
                     Ver ediciones limitadas
                   </button>
                 </LocalizedClientLink>
@@ -114,7 +120,10 @@ const Hero = () => {
                   Piezas únicas y exclusivas. No encontrarás dos iguales.
                 </p>
                 <LocalizedClientLink href="/categories/exclusivos">
-                  <button className="btn-sigrid-outline w-full">
+                  <button 
+                    className="btn-sigrid-outline w-full"
+                    data-testid="category-exclusivos-btn"
+                  >
                     Ver exclusivos
                   </button>
                 </LocalizedClientLink>
@@ -137,7 +146,10 @@ const Hero = () => {
                   Bisutería y coleteros para complementar tu look.
                 </p>
                 <LocalizedClientLink href="/categories/accesorios">
-                  <button className="btn-sigrid-outline w-full">
+                  <button 
+                    className="btn-sigrid-outline w-full"
+                    data-testid="category-accesorios-btn"
+                  >
                     Ver accesorios
                   </button>
                 </LocalizedClientLink>

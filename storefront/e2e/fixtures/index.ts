@@ -3,6 +3,7 @@ import { resetDatabase } from "../data/reset"
 import { CartPage } from "./cart-page"
 import { CategoryPage } from "./category-page"
 import { CheckoutPage } from "./checkout-page"
+import { HomePage } from "./home-page"
 import { OrderPage } from "./order-page"
 import { ProductPage } from "./product-page"
 import { StorePage } from "./store-page"
@@ -12,6 +13,7 @@ export const fixtures = base.extend<{
   cartPage: CartPage
   categoryPage: CategoryPage
   checkoutPage: CheckoutPage
+  homePage: HomePage
   orderPage: OrderPage
   productPage: ProductPage
   storePage: StorePage
@@ -38,6 +40,10 @@ export const fixtures = base.extend<{
   checkoutPage: async ({ page }, use) => {
     const checkoutPage = new CheckoutPage(page)
     await use(checkoutPage)
+  },
+  homePage: async ({ page }, use) => {
+    const homePage = new HomePage(page)
+    await use(homePage)
   },
   orderPage: async ({ page }, use) => {
     const orderPage = new OrderPage(page)
