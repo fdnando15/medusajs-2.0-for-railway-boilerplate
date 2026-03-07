@@ -5,27 +5,59 @@ Two apps: `backend/` (MedusaJS 2.x) and `storefront/` (Next.js 15 App Router).
 
 ## Build / Dev / Lint / Test Commands
 
+### 🚀 Desarrollo Local
+
+**Primera vez (setup completo):**
+
+```bash
+# 1. Crear DB PostgreSQL
+no ya esta creada en supabase
+
+# 2. Backend
+cd backend
+pnpm install
+pnpm ib  # Inicializa DB + seed
+
+# 3. Storefront
+cd ../storefront
+pnpm install
+
+# 4. Obtener API key
+psql -U postgres -d medusa-sigrid -c "SELECT id FROM publishable_api_key LIMIT 1;"
+# Copiar el resultado a storefront/.env.local → NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
+
+# 5. Iniciar (2 terminales)
+cd backend && pnpm dev        # Terminal 1 (puerto 9000)
+cd storefront && pnpm dev     # Terminal 2 (puerto 8000)
+```
+
+**Ver `INICIO-RAPIDO.md` o `CONFIGURACION-LOCAL.md` para guía detallada.**
+
 ### Backend (`backend/`)
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start Medusa dev server (hot reload) |
-| `pnpm build` | Production build (`medusa build` + postBuild script) |
-| `pnpm start` | Init backend + start production server |
-| `pnpm seed` | Run seed script (`medusa exec ./src/scripts/seed.ts`) |
-| `pnpm ib` | Init backend (alias for `init-backend`) |
-| `pnpm email:dev` | Preview email templates on port 3002 |
-| `pnpm test:store` | Run store test script |
+| Command                     | Description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| `pnpm dev`                  | Start Medusa dev server (hot reload)                         |
+| `pnpm build`                | Production build (`medusa build` + postBuild script)         |
+| `pnpm start`                | Init backend + start production server                       |
+| `pnpm seed`                 | Run seed script (`medusa exec ./src/scripts/seed.ts`)        |
+| `pnpm ib`                   | Init backend (migrations + seed) - **Requerido primera vez** |
+| `pnpm email:dev`            | Preview email templates on port 3002                         |
+| `pnpm test:store`           | Run store test script                                        |
+| `pnpm users:list`           | List all users and their roles                               |
+| `pnpm users:create`         | Create new user with permissions                             |
+| `pnpm users:show <email>`   | Show user permissions                                        |
+| `pnpm users:update <email>` | Update user role/permissions                                 |
 
 ### Storefront (`storefront/`)
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start Next.js dev server |
-| `pnpm build` | Production build (waits for backend) |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint (`next lint`) |
-| `pnpm test-e2e` | Run all Playwright E2E tests |
+| Command         | Description                          |
+| --------------- | ------------------------------------ |
+| `pnpm dev`      | Start Next.js dev server             |
+| `pnpm build`    | Production build (waits for backend) |
+| `pnpm start`    | Start production server              |
+| `pnpm lint`     | Run ESLint (`next lint`)             |
+| `pnpm test-e2e` | Run all Playwright E2E tests         |
 
 ### Running a Single E2E Test
 
